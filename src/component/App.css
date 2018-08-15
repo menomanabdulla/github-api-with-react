@@ -17,9 +17,35 @@
 .App-title {
   font-size: 1.5em;
 }
-
+.loading-text{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  line-height: 350px;
+  background: rgba(0,0,0,0.1)
+}
 .App-intro {
   font-size: large;
+}
+
+.repo-list{
+  list-style: none;
+  font-size: 0;
+}
+
+.repo-list li{
+  width: 25%;
+  padding: 30px;
+  display: inline-block;
+  margin: 8px;
+  -webkit-box-shadow: -1px 2px 32px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: -1px 2px 32px 0px rgba(0,0,0,0.1);
+  box-shadow: -1px 2px 32px 0px rgba(0,0,0,0.1);
+}
+.repo-list li div{
+  font-size: 18px;
+  text-align: left
 }
 
 @keyframes App-logo-spin {
