@@ -50,8 +50,20 @@
 
 .repo-catagory-list{
   list-style: none;
+  display: flex;
+  width: 65%;
+  margin: 0 auto;
 }
-
+.repo-catagory-list li {
+  cursor: pointer;
+  padding: 5px;
+  background: #ddd;
+  color: #000;
+  border-radius: 4px;
+  flex-grow: 1;
+  margin: 15px;
+  max-width: 150px;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
