@@ -48,6 +48,10 @@
   text-align: left
 }
 
+.repo-catagory-list{
+  list-style: none;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

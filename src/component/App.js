@@ -23,6 +23,7 @@ class App extends Component {
       popularRepo: [],
       loading: true
     }
+    this.clickHandeler = this.clickHandeler.bind(this)
     console.log('------ hello from constructor -------')
   }
 
@@ -48,26 +49,39 @@ class App extends Component {
    return true
   }
 
-  /*reposGroup(){
-   this.state.popularRepo.map((item,index)=>{
-      return <li key={index}>{item.name}</li>
-      //console.log(item)
+  clickHandeler(e){
+
+    this.setState({
+      ...this.state,
+      loading: true
     })
-    //console.log(this.state.popularRepo)
-  }*/
+
+    let data = e.currentTarget.dataset.name || 'all'
+    window.API.fetchPopularRepos(data)
+    .then((popularRepo)=>{
+      this.setState({
+        ...this.state,
+        popularRepo,
+        loading: false
+      })
+    })
+  }
 
   render() {
     //console.log(this.state.popularRepo)
     const {loading,rep} = this.state
     if(loading === true){
       return(
-
         <p className="loading-text">Loading</p>
       )
     }
     return (
       <div className="App">
-            <ul>
+            <ul className="repo-catagory-list">
+                <li data-name='all' onClick={this.clickHandeler}>all</li>
+                <li data-name="javascript" onClick={this.clickHandeler}>javascript</li>
+                <li data-name="ruby" onClick={this.clickHandeler}>ruby</li>
+                <li data-name="python" onClick={this.clickHandeler} >python</li>
             </ul>
             <ul className="repo-list">
               {
