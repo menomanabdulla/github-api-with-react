@@ -16,6 +16,41 @@ window.API = {
   }
 }
 
+
+class Loading extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      text : 'Loading'
+    }
+  }
+  componentDidMount(){
+    const stopper = this.state.text+'...'
+   this.interval =  window.setInterval(()=>{
+      this.state.text === stopper ?
+      this.setState({text: 'Loading'}):
+      this.setState((currentState)=>{
+        return({
+          text: currentState.text+'.'
+        })
+      })
+    }
+     ,300
+    )
+  }
+  componentWillUnmount(){
+    window.clearInterval(this.interval)
+  }
+  render(){
+    return(
+      <div className="loading-text">
+        <p>{this.state.text}</p>
+      </div>
+    )
+  }
+}
+
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -70,9 +105,9 @@ class App extends Component {
   render() {
     //console.log(this.state.popularRepo)
     const {loading,rep} = this.state
-    if(loading === true){
+    if(loading){
       return(
-        <p className="loading-text">Loading</p>
+        <Loading/>
       )
     }
     return (
