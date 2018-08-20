@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-
 window.API = {
   fetchPopularRepos(language) {
     // "language" can be "javascript", "ruby", "python", or "all"
@@ -15,7 +14,6 @@ window.API = {
       });
   }
 }
-
 
 class Loading extends React.Component{
   constructor(props){
@@ -56,6 +54,7 @@ class App extends Component {
     super(props)
     this.state= {
       popularRepo: [],
+      activeLanguage: 'all',
       loading: true
     }
     this.clickHandeler = this.clickHandeler.bind(this)
@@ -64,7 +63,7 @@ class App extends Component {
 
   componentDidMount(){
     console.log('------- component-did-mount ----------')
-    window.API.fetchPopularRepos('all')
+    window.API.fetchPopularRepos(this.state.activeLanguage)
       .then((popularRepo)=>{
         this.setState({
           ...this.state,
@@ -85,14 +84,14 @@ class App extends Component {
   }
 
   clickHandeler(e){
-
     this.setState({
       ...this.state,
+      popularRepo: e.currentTarget.dataset.name,
       loading: true
     })
 
-    let data = e.currentTarget.dataset.name || 'all'
-    window.API.fetchPopularRepos(data)
+   // let data = e.currentTarget.dataset.name || 'all'
+    window.API.fetchPopularRepos(this.state.activeLanguage)
     .then((popularRepo)=>{
       this.setState({
         ...this.state,
@@ -104,7 +103,7 @@ class App extends Component {
 
   render() {
     //console.log(this.state.popularRepo)
-    const {loading,rep} = this.state
+    const {loading} = this.state
     if(loading){
       return(
         <Loading/>
