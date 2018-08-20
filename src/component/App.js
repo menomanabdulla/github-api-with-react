@@ -63,17 +63,19 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log('------- component-did-mount ----------')
+    console.log('------- component-did Mount ----------')
     this.fatchRepos(this.state.activeLanguage)
   }
   componentDidUpdate(prevProps,prevState){
-    console.log('------- component-will-unmount ----------')
+    console.log('------- component-did Update ----------')
+    console.log(prevState.activeLanguage)
+    console.log(this.state.activeLanguage)
     if(prevState.activeLanguage !== this.state.activeLanguage){
       this.fatchRepos(this.state.activeLanguage)
     }
   }
   componentWillUnmount(){
-    console.log('------- component did update ----------')
+    console.log('------- component will-unmount ----------')
   }
   shouldComponentUpdate(){
    // console.log('------- Should-Component-Update ----------')
