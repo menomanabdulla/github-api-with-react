@@ -58,22 +58,19 @@ class App extends Component {
       loading: true
     }
     this.clickHandeler = this.clickHandeler.bind(this)
+    this.fatchRepos = this.fatchRepos.bind(this)
     console.log('------ hello from constructor -------')
   }
 
   componentDidMount(){
     console.log('------- component-did-mount ----------')
-    window.API.fetchPopularRepos(this.state.activeLanguage)
-      .then((popularRepo)=>{
-        this.setState({
-          ...this.state,
-          popularRepo,
-          loading: false
-        })
-      })
+    this.fatchRepos(this.state.activeLanguage)
   }
-  componentDidUpdate(){
+  componentDidUpdate(prevProps,prevState){
     console.log('------- component-will-unmount ----------')
+    if(prevState.activeLanguage !== this.state.activeLanguage){
+      this.fatchRepos(this.state.activeLanguage)
+    }
   }
   componentWillUnmount(){
     console.log('------- component did update ----------')
@@ -86,12 +83,12 @@ class App extends Component {
   clickHandeler(e){
     this.setState({
       ...this.state,
-      popularRepo: e.currentTarget.dataset.name,
+      activeLanguage: e.currentTarget.dataset.name,
       loading: true
     })
-
-   // let data = e.currentTarget.dataset.name || 'all'
-    window.API.fetchPopularRepos(this.state.activeLanguage)
+  }
+  fatchRepos(lang){
+    window.API.fetchPopularRepos(lang)
     .then((popularRepo)=>{
       this.setState({
         ...this.state,
@@ -100,7 +97,6 @@ class App extends Component {
       })
     })
   }
-
   render() {
     //console.log(this.state.popularRepo)
     const {loading} = this.state
@@ -117,6 +113,7 @@ class App extends Component {
                 <li data-name="ruby" onClick={this.clickHandeler}>ruby</li>
                 <li data-name="python" onClick={this.clickHandeler} >python</li>
             </ul>
+            <h1>Active language {this.state.activeLanguage}</h1>
             <ul className="repo-list">
               {
                 this.state.popularRepo.map((repo,index)=>(
